@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Entity
 @Table(name ="posts")
-@AllArgsConstructor  // constructure with argument with created
+@AllArgsConstructor  // Constructor with argument with created , No need to created constructor separately
 @NoArgsConstructor
 @Data // use for getters and setters
 public class Post {
@@ -18,5 +18,5 @@ public class Post {
     private long id ;
     private String title;
     private String  description;
-    private String Content;
+    private String content;
 }
