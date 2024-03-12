@@ -1,10 +1,14 @@
 
 package com.myblog.myblog1.service.impl;
+
 import com.myblog.myblog1.entity.Post;
 import com.myblog.myblog1.exception.ResourceNotFoundException;
 import com.myblog.myblog1.payload.PostDto;
 import com.myblog.myblog1.repository.PostRepository;
 import com.myblog.myblog1.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +28,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto createPost(PostDto postDto) { // implement form Dto Class
 
-         Post post = mapToEntity(postDto);
-         Post savedPost = postRepository.save(post); // save in dto
+        Post post = mapToEntity(postDto);
+        Post savedPost = postRepository.save(post); // save in dto
 
-         PostDto dto= mapToDto(savedPost); // Convert to Entity to DTO
-         return dto;
+        PostDto dto = mapToDto(savedPost); // Convert to Entity to DTO
+        return dto;
     }
 
 
@@ -47,24 +51,27 @@ public class PostServiceImpl implements PostService {
 
 
     @Override //       incomplete method from interface complete to class
-    public List<PostDto> getAllPosts() { // list of the data form database read the data
-        List<Post> posts = postRepository.findAll();
-        List<PostDto> dtos= posts.stream().map(p -> mapToDto(p)).collect(Collectors.toList()); // stream API
+    public List<PostDto> getAllPosts(int pageNo, int pageSize) { // list of the data form database read the data
+        Pageable pageable= PageRequest.of(pageNo,pageSize); // pagination
+        Page<Post> pagePost = postRepository.findAll(pageable); // pagination concept
+        List<Post> posts = pagePost.getContent();
+
+        List<PostDto> dtos = posts.stream().map(p -> mapToDto(p)).collect(Collectors.toList()); // stream API
         return dtos;
     }
 
 
-   PostDto mapToDto(Post post){ // Entity object convert to Dto
-       PostDto dto = new PostDto(); // Dto class Object
-       dto.setId(post.getId());
-       dto.setTitle(post.getTitle());
-       dto.setDescription(post.getDescription());
-       dto.setContent(post.getContent()); // Corrected method name to setContent()re
-       return dto;
+    PostDto mapToDto(Post post) { // Entity object convert to Dto
+        PostDto dto = new PostDto(); // Dto class Object
+        dto.setId(post.getId());
+        dto.setTitle(post.getTitle());
+        dto.setDescription(post.getDescription());
+        dto.setContent(post.getContent()); // Corrected method name to setContent()re
+        return dto;
     }
 
 
-    Post mapToEntity(PostDto postDto){
+    Post mapToEntity(PostDto postDto) {
         Post post = new Post(); // Entity Object
         post.setTitle(postDto.getTitle());
         post.setDescription(postDto.getDescription());

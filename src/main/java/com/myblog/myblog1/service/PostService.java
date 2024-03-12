@@ -11,6 +11,6 @@ public interface PostService {
     PostDto getPostById(long id); //
 
 
-    List<PostDto> getAllPosts(); // get the List Of the data fromm the database
+    List<PostDto> getAllPosts(int pageNo, int pageSize); // get the List Of the data fromm the database
     //                           this incomplete method is complete to the PostServiceImpl Class
 }
