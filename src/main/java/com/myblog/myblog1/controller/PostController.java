@@ -35,13 +35,15 @@ public class PostController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-//  http://localhost:8080/api/posts?pageNo=0&pageSize=5
+    //  http://localhost:8080/api/posts/all?pageNo=0&pageSize=5&sortBy=title&sortDir=desc
     // http://localhost:8080/api/posts
     @GetMapping("/all") // 2get mapping is not same bcz confuse which url to  call
     public List<PostDto> getAllPosts(                    //   Read the data from the Database
-                                                         @RequestParam(name = "pageNo", required = false, defaultValue = "0") int pageNo, // pagination & sorting
-                                                         @RequestParam(name = "pageSize", required = false, defaultValue = "3") int pageSize) {
-        List<PostDto> postDtos = postService.getAllPosts(pageNo, pageSize);  //  get list  of  the post  from databse
+                                                         @RequestParam(name = "pageNo", required = false, defaultValue = "0") int pageNo, // pagination
+                                                         @RequestParam(name = "pageSize", required = false, defaultValue = "3") int pageSize,// pagination
+                                                         @RequestParam(name = "sortBy", required = false, defaultValue = "id") String sortBy,
+                                                         @RequestParam(name = "sortDir", required = false, defaultValue = "id") String sortDir) { // sorting ascending or descending
+        List<PostDto> postDtos = postService.getAllPosts(pageNo, pageSize,sortBy , sortDir);  //  get list  of  the post  from database
         return postDtos;
     }
 
