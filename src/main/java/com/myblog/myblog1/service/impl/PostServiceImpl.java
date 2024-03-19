@@ -1,6 +1,5 @@
 
 package com.myblog.myblog1.service.impl;
-
 import com.myblog.myblog1.entity.Post;
 import com.myblog.myblog1.exception.ResourceNotFoundException;
 import com.myblog.myblog1.payload.PostDto;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +19,10 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository; //  implement repository layer in class
 
+
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
+
     }
 
 
@@ -31,7 +31,6 @@ public class PostServiceImpl implements PostService {
 
         Post post = mapToEntity(postDto);
         Post savedPost = postRepository.save(post); // save in dto
-
         PostDto dto = mapToDto(savedPost); // Convert to Entity to DTO
         return dto;
     }

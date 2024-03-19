@@ -1,6 +1,5 @@
 package com.myblog.myblog1.controller;
 
-import com.myblog.myblog1.entity.Post;
 import com.myblog.myblog1.payload.PostDto;
 import com.myblog.myblog1.service.PostService;
 import org.springframework.http.HttpStatus;
@@ -36,7 +35,7 @@ public class PostController {
     }
 
     //  http://localhost:8080/api/posts/all?pageNo=0&pageSize=5&sortBy=title&sortDir=desc
-    // http://localhost:8080/api/posts
+    // http://localhost:8080/api/posts/all
     @GetMapping("/all") // 2get mapping is not same bcz confuse which url to  call
     public List<PostDto> getAllPosts(                    //   Read the data from the Database
                                                          @RequestParam(name = "pageNo", required = false, defaultValue = "0") int pageNo, // pagination
